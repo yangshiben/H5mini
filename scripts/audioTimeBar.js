@@ -19,22 +19,25 @@
     var dom = null;
     var audio = null;
     var barWidth = 0;
+    var initDone = false;
     var down = false;
     var BarMove = false;//正在移动
     var lastX = 0, NewX = 0;//记录前后位置
     $.playBar = {
-        initBar: function (audio, duration, DOM) {
+        initDone: false,
+        initBar: function (audioDom, duration, DOM) {
             CleanAll();
             dom = DOM;
             allTime = parseInt(duration * 1000);
             width = DOM.width();
             times = allTime / 1000;
-            barWidth = width - 5;
+            barWidth = width - 17;
             addWidth = (width - 10) / times;
-            audio = audio;
+            audio = audioDom;
             var t = TransitionTime(allTime);
-           // audio.play();
+            audio.play();
             OpenBar();
+            this.initDone = true;
         },
         restTime: function (allTime) {//从新开始
             CleanAll();
@@ -54,7 +57,11 @@
             audio.pause();
         }
     }
-    $(document).on("mousedown", '.TimeBall', function (event) {
+    /*****处理拖动事件********/
+    var down = false;
+    var BarMove = false;//正在移动
+    var lastX = 0, NewX = 0;//记录前后位置
+    $(document).on("mousedown", '.slider-point', function (event) {
         lastX = event.clientX;
         event.preventDefault();
         down = true;
@@ -84,8 +91,7 @@
             }
             //console.log(changeM+" "+mcs);
             timeChange();
-            $('.TheColorBar').css("width", nowWidth + 1);
-            $('.TimeBall').css("left", nowWidth);
+            $('.slider-point').css("left", nowWidth);
             //down=false;
         }
     });
@@ -101,6 +107,9 @@
             //console.log(nowWidth+addWidth-offsetX+" "+parseInt(currTime/1000)*addWidth);
             if (isAction) {
                 OpenBar();//重新开始计时
+                audio.play();
+                audio.currentTime = parseFloat(currTime / 1000);
+                console.log(audio.currentTime);
             }
         }
     });
@@ -127,12 +136,12 @@
         var ltx = TransitionTime(currTime);
         if (TheHour > 0) {
             if (ltx.hHour) {
-                $('.BarBeginTime').html(ltx.StringTime);
+                $('.bar-time').html(ltx.StringTime);
             } else {
-                $('.BarBeginTime').html("00:" + ltx.StringTime);
+                $('.bar-time').html("00:" + ltx.StringTime);
             }
         } else {
-            $('.BarBeginTime').html(ltx.StringTime);
+            $('.bar-time').html(ltx.StringTime);
         }
         addSecond = ltx.Tsec;
         addMinute = ltx.Tmin;
@@ -143,16 +152,14 @@
 
 //时间拖动时改变时间
     function changeBar() {
+        console.log(audio.currentTime)
         var second, minute, hour;
         nowWidth = nowWidth * 1 + addWidth - offsetX;
         if (offsetX > 0) {
             offsetX = 0;
         }
-        if (currTime < allTime) {
+        if (nowWidth < barWidth && currTime < allTime) {
             currTime = currTime + 1 * 1000;//
-            nowWidth = parseInt(currTime / allTime * 100) + '%';
-            console.log(currTime);
-            console.log(nowWidth);
             addSecond = addSecond + 1;
             if (addSecond > 59) {
                 addSecond = 0;
@@ -219,7 +226,7 @@
             TheHour = 0;
             csx = cs;
             time = minute + ":" + second;
-            $('.BarBeginTime').html("00:00");
+            $('.bar-time').html("00:00");
         } else if (m >= 60 * 60) {//到达小时
             flag = 1;
             haveHour = true;
@@ -245,9 +252,9 @@
             TheMinute = cm;
             TheSecond = csx;
             time = hour + ":" + minute + ":" + second;
-            $('.BarBeginTime').html("00:00:00");
+            $('.bar-time').html("00:00:00");
         } else {//秒
-            $('.BarBeginTime').html("00:00");
+            $('.bar-time').html("00:00");
             csx = parseInt(m);
             if (parseInt(m) > 9) {
                 second = "" + parseInt(m);
@@ -269,6 +276,7 @@
         if (!down) {
             isAction = false;
         }
+        audio.pause();
         clearInterval(timer);
     }
 
