@@ -4,7 +4,7 @@
     margin: 30px auto 20px;
     background-position: center center;
     background-size: cover;
-    background-image: url('../images/P3-Background.png');
+    background-image: url('../images/P3B-背景.png');
 }
 .ele-bg{
     width: 324px;
@@ -14,46 +14,71 @@
 }
 .slider-point{
     position: absolute;
-    bottom: 12px;
+    bottom: 4px;
     cursor: pointer;
 }
 .switch-btn{
     position: absolute;
     bottom: 0px;
-    left: 2px;
-    cursor: pointer !important;
+    left: 1px;
+    cursor: pointer;
+    z-index: 5;
 }
 .effect-group{
     position: absolute;
-    right: 15px;
-    top: 390px;
+    right: 16px;
+    top: 386px;
     text-align: center;
 }
 .effect-btn{
     display: inline-block;
     width: 42px;
     height: 39px;
+    cursor: pointer;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    background-image: url("../images/P3-B-Btn.png");
+    background-image: url("../images/P3B-静止.png");
 }
-.effect-btn:hover{
+.effect-btn:active{
     cursor: pointer;
-    background-image: url("../images/P3-B-Btn_press.png");
+    background-image: url("../images/P3B-按下.png");
 }
 .volume-slider{
     position: absolute;
     display: inline-block;
-    width: 32px;
-    height: 100px;
-    bottom: 65px;
-    left: 26px;
+    bottom: 50px;
+    left: 25px;
+}
+.progress-slider{
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    height: 30px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("../images/P3B-进度条.png");
+}
+.ctrl-row{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("../images/P3B-控制台.png");
 }
 .bar-time{
     position: absolute;
-    bottom: 26px;
-    right: 15px;
+    bottom: -5px;
+    left: 44.6%;
     font-size: 13px;
     color: #9ae2e0;
+}
+.volume-box{
+    display: inline-block;
+    position: absolute;
+    bottom: 16px;
+    left: 10px;
 }

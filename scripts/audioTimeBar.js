@@ -5,25 +5,53 @@
 (function ($) {
     /*****处理拖动事件********
      */
-    var isAction=true;
-    var width=0;
-    var thewidth=0;
-    var CurrTime=0;//记录当前进度条表示时间
-    var t;
-    var addHour=0,addMinute=0,addSecond=0,TheHour=0,TheMinute=0,TheSecond=0;
-    var flag=0;//标志位
-    var alltime=0;//总时间毫秒
-    var addwidth=0;//每次增加的长度
-    var offsetW=0;//偏移量
-    var times=0;
-    var rwidth=0;
+    var isAction = true;
+    var width = 0;
+    var nowWidth = 0;
+    var currTime = 0;//记录当前进度条表示时间
+    var timer;
+    var addHour = 0, addMinute = 0, addSecond = 0, TheHour = 0, TheMinute = 0, TheSecond = 0;
+    var flag = 0;//标志位
+    var allTime = 0;//总时间毫秒
+    var addWidth = 0;//每次增加的长度
+    var offsetX = 0;//偏移量
+    var times = 0;
+    var dom = null;
+    var audio = null;
+    var barWidth = 0;
     var down = false;
     var BarMove = false;//正在移动
     var lastX = 0, NewX = 0;//记录前后位置
     $.playBar = {
-        duration: 0,
-        playStart: function () {
+        initBar: function (audio, duration, DOM) {
+            CleanAll();
+            dom = DOM;
+            allTime = parseInt(duration * 1000);
+            width = DOM.width();
+            times = allTime / 1000;
+            barWidth = width - 5;
+            addWidth = (width - 10) / times;
+            audio = audio;
+            var t = TransitionTime(allTime);
+           // audio.play();
             OpenBar();
+        },
+        restTime: function (allTime) {//从新开始
+            CleanAll();
+            StopBar();
+            allTime = allTime;
+            width = dom.width();
+            times = allTime / 1000;
+            barWidth = width - 5;
+            addWidth = (width - 10) / times;
+            var t = TransitionTime(allTime);
+            OpenBar();
+        },
+        startPlay: function () {
+            OpenBar();
+        },
+        stopPlay: function () {
+            audio.pause();
         }
     }
     $(document).on("mousedown", '.TimeBall', function (event) {
@@ -44,20 +72,20 @@
             lastX = NewX;
             //console.log(mcs+" "+lastX+" "+NewX);
             if (mcs < 0) {
-                if (thewidth - (-mcs) > 0) {
-                    thewidth = thewidth - (-mcs);
+                if (nowWidth - (-mcs) > 0) {
+                    nowWidth = nowWidth - (-mcs);
                 }
             } else {
-                if (thewidth + mcs < rwidth) {
-                    thewidth = thewidth + mcs;
+                if (nowWidth + mcs < barWidth) {
+                    nowWidth = nowWidth + mcs;
                 } else {
-                    thewidth = rwidth;
+                    nowWidth = barWidth;
                 }
             }
             //console.log(changeM+" "+mcs);
-            timechange();
-            $('.TheColorBar').css("width", thewidth + 1);
-            $('.TimeBall').css("left", thewidth);
+            timeChange();
+            $('.TheColorBar').css("width", nowWidth + 1);
+            $('.TimeBall').css("left", nowWidth);
             //down=false;
         }
     });
@@ -67,43 +95,64 @@
             BarMove = false;
             down = false;
             NewX = 0;
-            var xo = parseInt(CurrTime / 1000);
-            offsetW = thewidth - xo * addwidth;
-            //console.log(thewidth+" "+rwidth+" "+addwidth+" "+offsetW);
-            //console.log(thewidth+addwidth-offsetW+" "+parseInt(CurrTime/1000)*addwidth);
+            var xo = parseInt(currTime / 1000);
+            offsetX = nowWidth - xo * addWidth;
+            //console.log(nowWidth+" "+barWidth+" "+addWidth+" "+offsetX);
+            //console.log(nowWidth+addWidth-offsetX+" "+parseInt(currTime/1000)*addWidth);
             if (isAction) {
                 OpenBar();//重新开始计时
             }
         }
     });
-    function timechange(){
-        CurrTime=parseInt(thewidth/rwidth*alltime);
-        var ltx=TransitionTime(CurrTime);
-        if(TheHour>0){
-            if(ltx.hHour){
+    /*
+     *****全部清零
+     */
+    function CleanAll() {
+        isAction = true;
+        nowWidth = 0;
+        currTime = 0;
+        addHour = 0;
+        addMinute = 0;
+        addSecond = 0;
+        TheHour = 0;
+        TheMinute = 0;
+        TheSecond = 0;
+        offsetW = 0;
+        thewidth = 0;
+        flag = 0;
+    }
+
+    function timeChange() {
+        currTime = parseInt(nowWidth / barWidth * allTime);
+        var ltx = TransitionTime(currTime);
+        if (TheHour > 0) {
+            if (ltx.hHour) {
                 $('.BarBeginTime').html(ltx.StringTime);
-            }else{
-                $('.BarBeginTime').html("00:"+ltx.StringTime);
+            } else {
+                $('.BarBeginTime').html("00:" + ltx.StringTime);
             }
-        }else{
+        } else {
             $('.BarBeginTime').html(ltx.StringTime);
         }
-        addSecond=ltx.Tsec;
-        addMinute=ltx.Tmin;
-        addHour=ltx.Thour;
+        addSecond = ltx.Tsec;
+        addMinute = ltx.Tmin;
+        addHour = ltx.Thour;
     }
+
     //时间拖动时改变时间
 
 //时间拖动时改变时间
     function changeBar() {
-        alltime = $.duration;
         var second, minute, hour;
-        thewidth = thewidth * 1 + addwidth - offsetW;
-        if (offsetW > 0) {
-            offsetW = 0;
+        nowWidth = nowWidth * 1 + addWidth - offsetX;
+        if (offsetX > 0) {
+            offsetX = 0;
         }
-        if (thewidth < rwidth && CurrTime < alltime) {
-            CurrTime = CurrTime + 1 * 1000;//
+        if (currTime < allTime) {
+            currTime = currTime + 1 * 1000;//
+            nowWidth = parseInt(currTime / allTime * 100) + '%';
+            console.log(currTime);
+            console.log(nowWidth);
             addSecond = addSecond + 1;
             if (addSecond > 59) {
                 addSecond = 0;
@@ -138,13 +187,13 @@
                 $('.bar-time').html(hour + ":" + minute + ":" + second);
             }//
         } else {
-            //console.log(thewidth+" "+rwidth);
-            thewidth = rwidth;
+            //console.log(nowWidth+" "+barWidth);
+            nowWidth = barWidth;
             //StopBar();
         }
-        $('.TheColorBar').css("width", thewidth + 1);
-        $('.TimeBall').css("left", thewidth);
+        $('.slider-point').css("left", nowWidth);
     }
+
 //改变进度条
     function TransitionTime(str) {
         var m = parseFloat(str) / 1000;
@@ -214,16 +263,18 @@
         return tt;
         //$('.FinishTime').html(time);
     }
+
 //毫秒转换成分钟小时格式
     function StopBar() {
         if (!down) {
             isAction = false;
         }
-        clearInterval(t);
+        clearInterval(timer);
     }
+
 //进度停止
     function OpenBar() {
         isAction = true;
-        t = setInterval(changeBar, 1000);
+        timer = setInterval(changeBar, 1000);
     }
 })(jQuery)
