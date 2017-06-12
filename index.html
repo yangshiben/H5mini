@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H5Mini</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/H5mini.css">
+</head>
+<body>
+<div>
+    <div class="bg-area" style="position: relative">
+        <div class="ele-bg" style="background-image: url('images/P3-B-orangeCar.png');">
+            <div class="ele-bg" style="background-image: url('images/P3-B-silveryCar.png');width: 100%;height: 100%;">
+                <!--<div class="ele-bg" style="background-image: url('../images/P3-B-切歌按钮.png');width: 100%;height: 100%;"></div>-->
+                <ul class="effect-group" style="list-style-type: none;padding: 0">
+                    <li style=""><span class="effect-btn" onclick="insertEffect(1)"></span></li>
+                    <li><span class="effect-btn" style=""></span></li>
+                </ul>
+                <div class="progress-slider">
+                     <span id="volume_dg" class="slider-point" style="left: -5px">
+                        <img src="images/P3-B-progress_point.png" style="width: 22px;height: auto">
+                     </span>
+                     <span class="bar-time">00:00</span>
+                </div>
+                <div class="volume-slider">
+                    <div style="height: 100%">
+                        <span class="switch-btn" style="">
+                            <img src="images/P3-B-change_btn.png" style="width: 28px;height: auto">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="bower_components/dragjs/drag.js"></script>
+<script type="text/javascript" src="scripts/miniVoiceApp.js"></script>
+<script type="text/javascript" src="scripts/audioTimeBar.js"></script>
+<script>
+</script>
+</html>

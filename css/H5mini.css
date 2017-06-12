@@ -1,0 +1,59 @@
+.bg-area{
+    width: 324px;
+    height: 576px;
+    margin: 30px auto 20px;
+    background-position: center center;
+    background-size: cover;
+    background-image: url('../images/P3-Background.png');
+}
+.ele-bg{
+    width: 324px;
+    height: 576px;
+    background-position: center center;
+    background-size: contain;
+}
+.slider-point{
+    position: absolute;
+    bottom: 12px;
+    cursor: pointer;
+}
+.switch-btn{
+    position: absolute;
+    bottom: 0px;
+    left: 2px;
+    cursor: pointer !important;
+}
+.effect-group{
+    position: absolute;
+    right: 15px;
+    top: 390px;
+    text-align: center;
+}
+.effect-btn{
+    display: inline-block;
+    width: 42px;
+    height: 39px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("../images/P3-B-Btn.png");
+}
+.effect-btn:hover{
+    cursor: pointer;
+    background-image: url("../images/P3-B-Btn_press.png");
+}
+.volume-slider{
+    position: absolute;
+    display: inline-block;
+    width: 32px;
+    height: 100px;
+    bottom: 65px;
+    left: 26px;
+}
+.bar-time{
+    position: absolute;
+    bottom: 26px;
+    right: 15px;
+    font-size: 13px;
+    color: #9ae2e0;
+}

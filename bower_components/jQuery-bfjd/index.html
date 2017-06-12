@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link  href="css/barstyle.css" rel="stylesheet">
+<title>jquery播放进度条插件，可拖动</title>
+</head>
+<style type="text/css">
+.test{
+	width:400px;
+	height:20px;
+	position:fixed;
+	left:50%;
+	top:50%;
+	margin-left:-200px;
+	margin-top:-10px;
+	}
+.contral{
+	width:50px;
+	height:30px;
+	line-height:30px;
+	background:#3498DB;
+	cursor:pointer;
+	color:#fff;
+	position:fixed;
+	left:50%;
+	top:50%;
+	margin-left:-25px;
+	margin-top:-45px;
+	text-align:center;
+	}
+</style>
+<body>
+<div class="contral">停止</div>
+<div class="test"></div>
+</body>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="js/jquery-PlayBar.min.js"></script>
+<script>
+	$(function(){
+		var action=true;
+		$('.contral').click(function(){
+			if(action){
+				$.playBar.Stop();
+				action=false;
+				$(this).html("开始");
+				}else{
+					$.playBar.Begin();
+					action=true;
+					$(this).html("停止");
+					}
+			});
+		$.playBar.addBar($('.test'),1000*60);//第一个参数是需要显示播放器的容器，第二个参数为时间，单位毫秒
+		$.playBar.changeBarColor("#72dfff");//设置进度条颜色
+		
+		});
+</script>
+</html>
