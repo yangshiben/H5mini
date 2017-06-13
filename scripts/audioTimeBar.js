@@ -35,8 +35,6 @@
             addWidth = (width - 10) / times;
             audio = audioDom;
             var t = TransitionTime(allTime);
-            audio.play();
-            OpenBar();
             this.initDone = true;
         },
         restTime: function (allTime) {//从新开始
@@ -51,6 +49,8 @@
             OpenBar();
         },
         startPlay: function () {
+            CleanAll();
+            audio.play();
             OpenBar();
         },
         stopPlay: function () {
@@ -106,10 +106,10 @@
             //console.log(nowWidth+" "+barWidth+" "+addWidth+" "+offsetX);
             //console.log(nowWidth+addWidth-offsetX+" "+parseInt(currTime/1000)*addWidth);
             if (isAction) {
-                OpenBar();//重新开始计时
-                audio.play();
                 audio.currentTime = parseFloat(currTime / 1000);
-                console.log(audio.currentTime);
+                audio.play();
+                console.log(audio);
+                OpenBar();//重新开始计时
             }
         }
     });
@@ -152,7 +152,6 @@
 
 //时间拖动时改变时间
     function changeBar() {
-        console.log(audio.currentTime)
         var second, minute, hour;
         nowWidth = nowWidth * 1 + addWidth - offsetX;
         if (offsetX > 0) {
@@ -276,13 +275,13 @@
         if (!down) {
             isAction = false;
         }
-        audio.pause();
         clearInterval(timer);
     }
 
 //进度停止
     function OpenBar() {
         isAction = true;
+        if (timer) clearInterval(timer);
         timer = setInterval(changeBar, 1000);
     }
 })(jQuery)

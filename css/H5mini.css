@@ -1,3 +1,18 @@
+@keyframes fadeBg
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@-webkit-keyframes fadeBg /* Safari 与 Chrome */
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.motion-bg{
+    animation: fadeBg 2s infinite;
+    -webkit-animation: fadeBg 2s infinite;
+}
 .bg-area{
     width: 324px;
     height: 576px;
@@ -14,15 +29,24 @@
 }
 .slider-point{
     position: absolute;
-    bottom: 4px;
+    bottom: 5px;
     width: 22.4px;
     height: 22.4px;
     cursor: pointer;
 }
+.switch-mask{
+    position: absolute;
+    width: 56px;
+    height: 130px;
+    left: 12px;
+    bottom: 48px;
+    /*border: 1px solid #fff;*/
+    z-index: 10;
+}
 .switch-btn{
     position: absolute;
     bottom: 0px;
-    left: 1px;
+    left: 2px;
     cursor: pointer;
 }
 .effect-group{
@@ -76,7 +100,7 @@
 .bar-time{
     position: absolute;
     bottom: -5px;
-    left: 44.6%;
+    right: 5px;
     font-size: 13px;
     color: #9ae2e0;
 }
@@ -85,4 +109,22 @@
     position: absolute;
     bottom: 16px;
     left: 10px;
+}
+.clock-wrap{
+    position: absolute;
+    width: 100%;
+    top: 28px;
+    z-index: 5;
+}
+.turn-mask{
+    position: absolute;
+    width: 153px;
+    height: 153px;
+    left: 50%;
+    margin-left: -78px;
+    bottom: 40px;
+    z-index: 12;
+    /*border: 1px solid #f1f1f1;*/
+    border-radius: 50%;
+    cursor: pointer;
 }

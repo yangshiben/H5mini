@@ -1,7 +1,7 @@
 
 $.fn.extend({
 		//---元素拖动插件
-    dragging:function(data){   
+    dragging:function(data){
 		var $this = $(this);
 		var xPage;
 		var yPage;
@@ -20,6 +20,10 @@ $.fn.extend({
 		var random = opt.randomPosition;
 		
 		var hander = opt.hander;
+		var callFunc = opt.finishCall; //
+		var targetDom = opt.target;
+		var endY = 0;
+		var preY = 0;
 		
 		if(hander == 1){
 			hander = $this; 
@@ -68,8 +72,8 @@ $.fn.extend({
 				
 			});	
 		}
-		
-		hander.mousedown(function(e){
+
+        $(targetDom).mousedown(function(e){
 			father.children().css({"zIndex":"0"});
 			$this.css({"zIndex":"1"});
 			mDown = true;
@@ -77,14 +81,29 @@ $.fn.extend({
 			Y = e.pageY;
 			positionX = $this.position().left;
 			positionY = $this.position().top;
-			return false;
+			preY = positionY - Y;
+            return false;
 		});
 			
-		$(document).mouseup(function(e){
-			mDown = false;
+		$(targetDom).mouseup(function(e){
+            if(moveY <= (faHeight-thisHeight)/2) {
+                $this.css({"top": '0'});
+                if (positionY != 0 && typeof callFunc == 'function') callFunc();
+            }
+			if(moveY > (faHeight-thisHeight)/2) {
+                $this.css({"top":faHeight-thisHeight});
+                if (Math.abs(positionY - (faHeight-thisHeight)) > 0.001 && typeof callFunc == 'function') callFunc();
+			}
+           /* if (moveY <= 0) {
+            	if (typeof callFunc == 'function') callFunc();
+            }
+            if (moveY >= (faHeight-thisHeight)) {
+                if (typeof callFunc == 'function') callFunc();
+            }*/
+            mDown = false;
 		});
 			
-		$(document).mousemove(function(e){
+		$(targetDom).mousemove(function(e){
 			xPage = e.pageX;//--
 			moveX = positionX+xPage-X;
 			
@@ -144,7 +163,7 @@ $.fn.extend({
 			if(movePosition.toLowerCase() == "x"){
 				thisXMove();
 			}else if(movePosition.toLowerCase() == "y"){
-				thisYMove();
+				endY = thisYMove();
 			}else if(movePosition.toLowerCase() == 'both'){
 				thisAllMove();
 			}

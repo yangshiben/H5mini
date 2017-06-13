@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>H5Mini</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>MiniH5</title>
     <style>
-        img{
+        img {
             width: 26.08%;
             height: auto;
         }
-        .effect-group>li{
+
+        .effect-group > li {
             line-height: 1;
         }
     </style>
@@ -16,64 +17,70 @@
     <link rel="stylesheet" href="css/H5mini.css">
 </head>
 <body>
-<div>
-    <div class="bg-area" style="position: relative">
-        <!--<div class="ele-bg" style="background-image: url('images/P3A-遮罩.png');width: 100%;height: 100%; display: none">-->
-        <div class="ele-bg" style="background-image: url('images/P3B-动态背景.png');width: 100%;height: 100%;">
-            <div class="ele-bg" style="background-image: url('images/P3B-车后光效.png');width: 100%;height: 100%;">
-                <div class="ele-bg" style="background-image: url('images/P3B-前景光效.png');width: 100%;height: 100%;">
-                    <div class="ele-bg" style="background-image: url('images/P3B-车.png');width: 100%;height: 100%;">
-                    <!--<div class="ele-bg" style="background-image: url('../images/P3-B-切歌按钮.png');width: 100%;height: 100%;"></div>-->
-                    <div class="text-right"><span><img src="images/P3B-logo.png"></span></div>
-                    <div class="ctrl-row" style="margin-top: 72%">
+<div class="col-sm-12">
+    <div class="row">
+        <div class="bg-area" style="position: relative">
+            <!--<div class="ele-bg" style="background-image: url('images/P3A-遮罩.png');width: 100%;height: 100%; display: none">-->
+            <div class="ele-bg" id="motion-bg" style="background-image: url('images/P3B-动态背景.png');width: 100%;height: 100%;">
+                <div class="ele-bg" style="background-image: url('images/P3B-车后光效.png');width: 100%;height: 100%;">
+                    <div class="ele-bg" style="background-image: url('images/P3B-前景光效.png');width: 100%;height: 100%;">
+                        <div class="ele-bg" style="background-image: url('images/P3B-车.png');width: 100%;height: 100%;">
+                            <!--<div class="ele-bg" style="background-image: url('../images/P3-B-切歌按钮.png');width: 100%;height: 100%;"></div>-->
+                            <div class="text-right"><span><img src="images/P3B-logo.png"></span></div>
+                            <div class="ctrl-row" style="margin-top: 72%">
                     <span><video style="width: 100px;" loop autoplay>
                         <source src="" type="video/mov">
                     </video></span>
-                        <span><img src="images/P3B-音量条.png" style="width: 45%;float: right;margin-right: 10px"></span>
-                    </div>
-                    <div style="position: relative;height: 32.5%">
-                        <div style="position: absolute;bottom: 8px;width:100%;text-align: center">
-                            <img id="turntable" src="images/P3B-转盘.png" style="cursor: pointer;width: 61%">
-                          <!--  <div style="position: absolute;width: 100%;top: 41px;z-index: 3">
-                                <img  src="images/P3B-转盘中心.png" style="">
+                                <span><img src="animations/music-circles_v2.gif" style="position: absolute;bottom: 8px;left: 100px;z-index: 10"></span>
+                                <span><img src="animations/music-visualizer_v1_01900.gif" style="width: 48%;position: absolute;bottom: 10px;right: 8px"></span>
                             </div>
-                            <div id="clockwise" style="position: absolute;width: 100%;top: 41px;z-index: 5">
-                                <img src="images/P3B-旋转方向（顺时针）.png">
+                            <div style="position: relative;height: 32.5%">
+                                <div style="position: absolute;bottom: 8px;width:100%;text-align: center">
+                                    <img id="turntable" src="images/P3B-转盘.png" style="width: 61%">
+                                    <div style="position: absolute;width: 100%;top: 41px;z-index: 3">
+                                        <img src="images/P3B-转盘中心.png" style="">
+                                    </div>
+                                    <div id="clockwise" class="clock-wrap" style="opacity: 0">
+                                        <img src="images/P3B-旋转方向（顺时针）.png" style="margin-left: -2px;width: 42.9%;">
+                                    </div>
+                                    <div id="anticlockwise" class="clock-wrap" style="top: 25px;opacity: 0">
+                                        <img src="images/P3B-旋转方向（逆时针）.png" style="margin-left: 2px;width: 46.8%;">
+                                    </div>
+                                </div>
                             </div>
-                            <div id="anticlockwise" style="position: absolute;width: 100%;top: 41px;z-index: 6">
-                                <img src="images/P3B-旋转方向（逆时针）.png">
-                            </div>-->
-                        </div>
-                    </div>
-                    <ul class="effect-group" style="list-style-type: none;padding: 0">
-                        <li style=""><span class="effect-btn" onclick="insertEffect(1)"></span></li>
-                        <li style=""><span class="effect-btn" onclick="insertEffect(2)"></span></li>
-                        <li style=""><span class="effect-btn" onclick="insertEffect(3)"></span></li>
-                        <li style=""><span class="effect-btn" onclick="insertEffect(4)"></span></li>
-                    </ul>
-                    <div class="progress-slider">
+                            <div class="turn-mask"></div>
+                            <ul class="effect-group" style="list-style-type: none;padding: 0">
+                                <li style=""><span class="effect-btn" onclick="insertEffect(1)"></span></li>
+                                <li style=""><span class="effect-btn" onclick="insertEffect(2)"></span></li>
+                                <li style=""><span class="effect-btn" onclick="insertEffect(3)"></span></li>
+                                <li style=""><span class="effect-btn" onclick="insertEffect(4)"></span></li>
+                            </ul>
+                            <div class="progress-slider">
                      <span id="volume_dg" class="slider-point" style="left: -5px">
                         <img src="images/P3B-进度条点.png" style="width: 100%;">
                      </span>
-                        <div class="text-center"><span class="bar-time">00:00</span></div>
-                    </div>
-                    <div style="">
-                        <div class="volume-slider" style="">
-                            <span><img src="images/P3B-切歌条.png"></span>
+                                <div class="text-right"><span class="bar-time">00:00</span></div>
+                            </div>
+                            <div style="">
+                                <div class="volume-slider" style="">
+                                    <span><img src="images/P3B-切歌条.png"></span>
+                                </div>
+                                <div class="volume-box">
+                                    <img src="images/P3B-音量框.png">
+                                </div>
+                            </div>
+                            <div class="switch-mask">
+                                <div style="height: 130px;">
+                                    <img class="switch-btn" src="images/P3B-切歌按钮.png" style="width: 100%;position: absolute;top:0">
+                                </div>
+                            </div>
                         </div>
-                        <div style="">
-                            <span class="switch-btn" style=""><img src="images/P3B-切歌按钮.png" style=""></span>
-                        </div>
-                        <div class="volume-box">
-                            <img src="images/P3B-音量框.png">
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
