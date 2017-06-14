@@ -1,0 +1,64 @@
+<div class="col-sm-12">
+    <div class="row">
+        <div class="bg-area" style="position: relative">
+            <!--<div class="ele-bg" style="background-image: url('images/P3A-遮罩.png');width: 100%;height: 100%; display: none">-->
+            <div class="ele-bg" id="motion-bg" style="background-image: url('../images/P3B/P3B-动态背景.png');width: 100%;height: 100%;">
+                <div class="ele-bg" style="background-image: url('../images/P3B/P3B-车后光效.png');width: 100%;height: 100%;">
+                    <div class="ele-bg" style="background-image: url('../images/P3B/P3B-前景光效.png');width: 100%;height: 100%;">
+                        <div class="ele-bg" style="background-image: url('../images/P3B/P3B-车.png');width: 100%;height: 100%;">
+                            <!--<div class="ele-bg" style="background-image: url('../images/P3-B-切歌按钮.png');width: 100%;height: 100%;"></div>-->
+                            <div class="text-right"><span><img src="images/P3B/P3B-logo.png"></span></div>
+                            <div class="ctrl-row" style="margin-top: 72%">
+                    <span><video style="width: 100px;" loop autoplay>
+                        <source src="" type="video/mov">
+                    </video></span>
+                                <span><img src="animations/music-circles_v2.gif" style="position: absolute;bottom: 8px;left: 100px;z-index: 10"></span>
+                                <span><img src="animations/music-visualizer_v1_01900.gif" style="width: 48%;position: absolute;bottom: 10px;right: 8px"></span>
+                            </div>
+                            <div style="position: relative;height: 32.5%">
+                                <div style="position: absolute;bottom: 21px;width:100%;text-align: center">
+                                    <img id="turntable" src="images/P3B/P3B-转盘v2.png" style="width: 47.5%">
+                                    <div style="position: absolute;width: 100%;top: 23px;z-index: 3">
+                                        <img src="images/P3B/P3B-转盘中心.png" style="margin-left: 1px">
+                                    </div>
+                                    <div id="clockwise" class="clock-wrap" style="opacity: 0">
+                                        <img src="images/P3B/P3B-旋转方向（顺时针）.png" style="margin-left: -2px;margin-top: -2px;width: 44.2%;">
+                                    </div>
+                                    <div id="anticlockwise" class="clock-wrap" style="top: 4px;opacity: 0">
+                                        <img src="images/P3B/P3B-旋转方向（逆时针）.png" style="margin-left: 5px;width: 48.8%;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="turn-mask"></div>
+                            <ul class="effect-group" style="list-style-type: none;padding: 0">
+                                <li style=""><span class="effect-btn" ng-mousedown="loopEffect(1)" ng-mouseup="loopCancel(1)"></span></li>
+                                <li style=""><span class="effect-btn" ng-mousedown="insertEffect(2)"></span></li>
+                                <li style=""><span class="effect-btn" ng-mousedown="insertEffect(3)"></span></li>
+                                <li style=""><span class="effect-btn" ng-mousedown="loopEffect(4)" ng-mouseup="loopCancel(4)"></span></li>
+                            </ul>
+                            <div class="progress-slider">
+                     <span id="volume_dg" class="slider-point" style="left: -1px">
+                        <img src="images/P3B/P3B-进度条点v2.png" style="width: 80%;">
+                     </span>
+                                <div class="text-right"><span class="bar-time">00:00</span></div>
+                            </div>
+                            <div style="">
+                                <div class="volume-slider" style="">
+                                    <span><img src="images/P3B/P3B-切歌条v2.png" style="width: 32%; height: 96px"></span>
+                                </div>
+                                <div class="volume-box">
+                                    <img src="images/P3B/P3B-音量框.png">
+                                </div>
+                            </div>
+                            <div class="switch-mask">
+                                <div style="height: 130px;">
+                                    <img class="switch-btn" src="images/P3B/P3B-切歌按钮.png" style="width: 100%;position: absolute;top:0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

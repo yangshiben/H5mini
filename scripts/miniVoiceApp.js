@@ -4,6 +4,8 @@
 var audioMain;
 var effectGroup = [];
 var songsGroup = [];
+var degAdd = 0;
+var interval = null;
 var currPlay = null; //当前播放的歌曲
 var audioDJ1 = new Audio('audios/DJ盘音效示例001.wav');
 var audioDJ2 = new Audio('audios/wq1204.wav');
@@ -44,11 +46,10 @@ $(function () {
                 $('#anticlockwise').css('opacity', 0);
                 $('#clockwise').css('opacity', 1);
             }
-            $('.turntable').css('transform','rotate('+ parseInt(newX) + 'deg)');
         }
     });
 //文档上鼠标拖动
-    $('.turn-mask').mouseup(function (event) {
+    $(document).mouseup(function (event) {
         event.preventDefault();
         $('body').css('cursor', 'default')
         $('#anticlockwise').css('opacity', 0);

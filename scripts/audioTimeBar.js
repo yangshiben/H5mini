@@ -31,7 +31,7 @@
             allTime = parseInt(duration * 1000);
             width = DOM.width();
             times = allTime / 1000;
-            barWidth = width - 17;
+            barWidth = width - 15;
             addWidth = (width - 10) / times;
             audio = audioDom;
             var t = TransitionTime(allTime);
@@ -108,7 +108,6 @@
             if (isAction) {
                 audio.currentTime = parseFloat(currTime / 1000);
                 audio.play();
-                console.log(audio);
                 OpenBar();//重新开始计时
             }
         }
